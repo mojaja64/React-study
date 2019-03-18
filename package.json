@@ -9,7 +9,8 @@
     "@material-ui/icons": "3.0.2",
     "react": "16.8.3",
     "react-dom": "16.8.3",
-    "react-scripts": "2.0.3"
+    "react-scripts": "2.0.3",
+    "react-swipeable-views": "0.13.1"
   },
   "devDependencies": {},
   "scripts": {
