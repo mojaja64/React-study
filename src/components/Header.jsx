@@ -9,6 +9,12 @@ import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import InputBase from "@material-ui/core/InputBase";
 import Paper from "@material-ui/core/Paper";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -65,10 +71,10 @@ const styles = theme => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: 150,
-      "&:focus": {
-        width: 200
-      }
+      width: 150
+      //"&:focus": {
+      // width: 200
+      //}
     }
   }
 });
@@ -88,15 +94,25 @@ TabContainer.propTypes = {
 
 class Header extends React.Component {
   state = {
-    value: 0
+    tabIndex: 0,
+    server: 0,
+    summonerName: ""
   };
 
-  handleChange = (event, value) => {
-    this.setState({ value });
+  handleChange = (event, tabIndex) => {
+    this.setState({ tabIndex });
   };
 
   handleChangeIndex = index => {
-    this.setState({ value: index });
+    this.setState({ tabIndex: index });
+  };
+
+  handleChangeName = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleChangeServer = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
@@ -125,31 +141,52 @@ class Header extends React.Component {
                   root: classes.inputRoot,
                   input: classes.inputInput
                 }}
+                value={this.state.summonerName}
+                onChange={this.handleChangeName}
+                name="summonerName"
               />
             </div>
+            <FormControl className={classes.formControl}>
+              {/*
+              <InputLabel shrink htmlFor="age-label-placeholder">
+                Server
+              </InputLabel>
+              */}
+              <Select
+                value={this.state.server}
+                onChange={this.handleChangeServer}
+                input={<Input name="server" id="server-label-placeholder" />}
+                displayEmpty
+                name="server"
+                className={classes.selectEmpty}
+              >
+                <MenuItem value={0}>JP</MenuItem>
+                <MenuItem value={1}>KR</MenuItem>
+                <MenuItem value={2}>EU</MenuItem>
+                <MenuItem value={3}>NA</MenuItem>
+              </Select>
+            </FormControl>
           </Toolbar>
           <Paper elevation={0} square={true}>
             <Typography variant="h5" component="h3">
               This is a sheet of paper.
             </Typography>
-            <Typography component="p">
-              Paper can be used to build surface or other elements for your
-              application.
-            </Typography>
+            <Typography component="p">{this.state.summonerName}</Typography>
           </Paper>
           <Tabs
-            value={this.state.value}
+            value={this.state.tabIndex}
             onChange={this.handleChange}
             variant="fullWidth"
+            name="tabIndex"
           >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
+            <Tab label="Games" />
+            <Tab label="Champions" />
+            <Tab label="performance" />
           </Tabs>
         </AppBar>
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={this.state.value}
+          index={this.state.tabIndex}
           onChangeIndex={this.handleChangeIndex}
         >
           <TabContainer dir={theme.direction}>
@@ -157,8 +194,16 @@ class Header extends React.Component {
               Item One
             </Typography>
           </TabContainer>
-          <TabContainer dir={theme.direction}>Item Two</TabContainer>
-          <TabContainer dir={theme.direction}>Item Three</TabContainer>
+          <TabContainer dir={theme.direction}>
+            <Typography variant="h5" component="h3">
+              Item Two
+            </Typography>
+          </TabContainer>
+          <TabContainer dir={theme.direction}>
+            <Typography variant="h5" component="h3">
+              Item Three
+            </Typography>
+          </TabContainer>
         </SwipeableViews>
       </div>
     );
