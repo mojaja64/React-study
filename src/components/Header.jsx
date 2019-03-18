@@ -8,6 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import InputBase from "@material-ui/core/InputBase";
+import Paper from "@material-ui/core/Paper";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -127,6 +128,15 @@ class Header extends React.Component {
               />
             </div>
           </Toolbar>
+          <Paper elevation={0} square={true}>
+            <Typography variant="h5" component="h3">
+              This is a sheet of paper.
+            </Typography>
+            <Typography component="p">
+              Paper can be used to build surface or other elements for your
+              application.
+            </Typography>
+          </Paper>
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
@@ -142,7 +152,11 @@ class Header extends React.Component {
           index={this.state.value}
           onChangeIndex={this.handleChangeIndex}
         >
-          <TabContainer dir={theme.direction}>Item One</TabContainer>
+          <TabContainer dir={theme.direction}>
+            <Typography variant="h5" component="h3">
+              Item One
+            </Typography>
+          </TabContainer>
           <TabContainer dir={theme.direction}>Item Two</TabContainer>
           <TabContainer dir={theme.direction}>Item Three</TabContainer>
         </SwipeableViews>
